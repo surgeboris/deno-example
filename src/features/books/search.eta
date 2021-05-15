@@ -1,0 +1,53 @@
+<% layout("layouts/main", { "title": "Библиотека №1 — Найти книгу" }) %>
+
+<main>
+  <section>
+    <h2>Найти книгу</h2>
+    <form method="get">
+      <label>
+        Название книги
+        <input type="text" name="title" value="<%= it.params?.title ?? "" %>" />
+      </label>
+      <label>
+        ISBN
+        <input type="text" name="isbn" value="<%= it.params?.isbn ?? "" %>" />
+      </label>
+      <label>
+        Фамилия автора
+        <input type="text" name="lastname" value="<%= it.params?.lastname ?? "" %>" />
+      </label>
+      <label>
+        Жанр книги
+        <input type="text" name="genre" value="<%= it.params?.genre ?? "" %>" />
+      </label>
+      <footer>
+        <button type="submit">Найти книгу</button>
+        &nbsp;&nbsp;
+        <a href="<%= it.url.pathname %>">Сбросить</a>
+      </footer>
+    </form>
+  </section>
+  <section>
+    <h2>Результаты поиска</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Название</th>
+          <th>Автор</th>
+          <th>Жанр</th>
+          <th>Доступно, шт.</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% it.books.forEach(book => { %>
+          <tr>
+            <td><%= book.title %></td>
+            <td><%= it.formatAuthorName(book) %></td>
+            <td><%= book.genre %></td>
+            <td><%= book.quantity %></td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </section>
+</main>
