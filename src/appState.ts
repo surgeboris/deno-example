@@ -1,4 +1,5 @@
 export interface State {
+  isBootstrapInProgress?: boolean;
   [k: string]: unknown;
 }
 

@@ -11,6 +11,26 @@
 </head>
 
 <body>
+  <header>
+    <nav>
+      <ul>
+        <li><a href="/">Главная</a></li>
+        <% if (it.user?.role === "librarian") { %>
+          <li><a href="/register">Зарегистрировать читателя</a></li>
+        <% } %>
+        <li>
+          <% if (!it.user) { %>
+            <a href="/login">Войти</a>
+          <% } else { %>
+            <a href="/logout">Выйти</a>
+          <% } %>
+        </li>
+      </ul>
+    </nav>
+    <% if (it.user) { %>
+      <p>Вы вошли как <%= it.user.login %></p>
+    <% } %>
+  </header>
   <%~ it.body %>
 </body>
 
