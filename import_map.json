@@ -6,7 +6,8 @@
     "denodb": "https://deno.land/x/denodb@v1.0.38/mod.ts",
     "oak": "https://deno.land/x/oak@v7.4.0/mod.ts",
     "path": "https://deno.land/std@0.95.0/path/mod.ts",
-    "sqlite": "https://deno.land/x/sqlite@v2.4.1/mod.ts"
+    "sqlite": "https://deno.land/x/sqlite@v2.4.1/mod.ts",
+    "sessions": "https://deno.land/x/sessions@v1.4.0/mod.ts"
   },
   "scopes": {
   }

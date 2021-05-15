@@ -1,10 +1,12 @@
 import { Application } from "oak";
+import { OakSession } from "sessions";
 
 import { state } from "src/appState.ts";
-import "src/dbSetup.ts";
+import { sessionStore } from "src/dbSetup.ts";
 import { routes } from "src/routes.ts";
 
 const app = new Application({ state });
+new OakSession(app, sessionStore);
 app.use(routes);
 app.listen("0.0.0.0:3000");
 

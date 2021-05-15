@@ -1,4 +1,4 @@
-import { db } from "src/db.ts";
+import { db, sessionStore } from "src/db.ts";
 
 const models = [];
 
@@ -7,3 +7,5 @@ models.push(User);
 
 db.link(models);
 db.sync();
+
+export { sessionStore };

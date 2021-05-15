@@ -1,5 +1,6 @@
 import { Database, SQLite3Connector } from "denodb";
 import { existsSync } from "fs";
+import { SqliteStore } from "sessions";
 import { DB } from "sqlite";
 
 const dbFile = "./database.sqlite";
@@ -10,6 +11,11 @@ const DB_PATH = Deno.realPathSync(dbFile);
 
 const connector = new SQLite3Connector({
   filepath: DB_PATH,
+});
+
+export const sessionStore = new SqliteStore({
+  path: DB_PATH,
+  tableName: "sessions",
 });
 
 export const db = new Database(connector);
