@@ -16,6 +16,7 @@
       <ul>
         <li><a href="/">Главная</a></li>
         <% if (it.user?.role === "librarian") { %>
+          <li><a href="/bookadd">Добавить книгу</a></li>
           <li><a href="/register">Зарегистрировать читателя</a></li>
         <% } %>
         <li>

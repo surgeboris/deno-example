@@ -1,0 +1,61 @@
+<% layout("layouts/main", { "title": "Библиотека №1 — Добавить книгу" }) %>
+
+<main>
+  <section>
+    <h1>Добавить книгу</h1>
+    <form method="post">
+      <% if (it.result === "error") { %>
+        <p>Произошла ошибка, попробуйте ещё раз.</p>
+      <% } else if (it.result === "success") { %>
+        <p>Книга успешно добавлена.</p>
+      <% } %>
+      <label>
+        Название книги
+        <input type="text" name="title" value="<%= it.values?.title ?? "" %>" required />
+      </label>
+      <label>
+        ISBN
+        <input type="text" name="isbn" value="<%= it.values?.isbn ?? "" %>" required />
+      </label>
+      <label>
+        Год издания
+        <input type="number" min="0" max="2100" name="year" value="<%= it.values?.year ?? "" %>" required />
+      </label>
+      <label>
+        Количество экземпляров книги
+        <input type="number" min="1" name="quantity" value="<%= it.values?.quantity ?? "" %>" required />
+      </label>
+      <label>
+        Количество страниц в книге
+        <input type="number" min="1" name="pages" value="<%= it.values?.pages ?? "" %>" required />
+      </label>
+      <label>
+        Фамилия автора
+        <input type="text" name="lastname" value="<%= it.values?.lastname ?? "" %>" required />
+      </label>
+      <label>
+        Имя автора
+        <input type="text" name="firstname" value="<%= it.values?.firstname ?? "" %>" required />
+      </label>
+      <label>
+        Отчество автора
+        <input type="text" name="middlename" value="<%= it.values?.middlename ?? "" %>" required />
+      </label>
+      <label>
+        Жанр книги
+        <input type="text" name="genre" value="<%= it.values?.genre ?? "" %>" required />
+      </label>
+      <label>
+        Издательство
+        <input type="text" name="publisher" value="<%= it.values?.publisher ?? "" %>" required />
+      </label>
+      <label>
+        Адрес издательства
+        <input type="text" name="address" value="<%= it.values?.address ?? "" %>" required />
+      </label>
+      <footer>
+        <button type="submit">Добавить книгу</button>
+      </footer>
+    </form>
+  </section>
+</main>
