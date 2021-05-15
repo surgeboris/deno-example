@@ -32,7 +32,7 @@ export class Book extends Model {
       Book.field("publisher_id"),
     );
   }
-  static search(params: BookSearchParams) {
+  static async search(params: BookSearchParams) {
     const values: Partial<BookSearchParams> = {};
     (["title", "isbn", "lastname", "genre"] as const).forEach((k) => {
       if (params[k]) values[k] = `%${params[k]}%`;
@@ -42,8 +42,6 @@ export class Book extends Model {
     const titleField = Book.field("title");
     const genreField = Genre.field("title");
     let query = [
-      `SELECT ${titleField}, quantity, firstname, middlename,`,
-      `lastname, ${genreField} AS genre`,
       `FROM ${Book.table} LEFT JOIN ${Author.table}`,
       `ON ${Book.table}.author_id = ${Author.field("id")}`,
       `LEFT JOIN ${Genre.table}`,
@@ -51,17 +49,30 @@ export class Book extends Model {
     ].join(" ");
     const whereClauses: string[] = [];
     if (params.title) whereClauses.push(`${titleField} LIKE :title`);
-    if (params.isbn) whereClauses.push(`${Book.field("isbn")} LIKE :isbn`);
+    if (params.isbn) {
+      whereClauses.push(`${Book.field("isbn")} LIKE :isbn`);
+    }
     if (params.lastname) {
       whereClauses.push(`${Author.field("lastname")} LIKE :lastname`);
     }
     if (params.genre) whereClauses.push(`${genreField} LIKE :genre`);
     const where = whereClauses.join(" AND ");
     if (where) query += ` WHERE ${where}`;
+    const totalQuery = `SELECT COUNT(*) as c ${query}`;
+    const { from: _f, limit: _l, ...totalValues } = values;
+    const total: number = (await queryRaw(totalQuery, { ...totalValues }))[0].c;
     query += ` ORDER BY ${Book.table}.created_at DESC`;
     query += ` LIMIT :limit`;
     if (params.from) query += ` OFFSET :from`;
-    return queryRaw(query, values);
+    const books = await queryRaw(
+      [
+        `SELECT ${titleField}, quantity, firstname, middlename,`,
+        `lastname, ${genreField} AS genre`,
+        query,
+      ].join(" "),
+      values,
+    );
+    return [total, books] as const;
   }
 }
 

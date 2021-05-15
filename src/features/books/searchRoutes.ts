@@ -1,5 +1,6 @@
 import { Request } from "oak";
 
+import { getPaginationData } from "src/pagination.ts";
 import { router } from "src/router.ts";
 import { setupRenderer } from "src/templatingEngine.ts";
 
@@ -9,8 +10,20 @@ const render = setupRenderer(import.meta.url);
 
 router.get("/books", async (ctx) => {
   const params = parseSearchBookPayload(ctx.request);
-  const books = await Book.search(params);
-  return render("./search.eta", { ctx }, { books, params, formatAuthorName });
+  const [total, books] = await Book.search(params);
+  const pagination = getPaginationData({
+    type: "get",
+    from: params.from,
+    limit: params.limit,
+    total,
+    url: ctx.request.url,
+  });
+  return render("./search.eta", { ctx }, {
+    books,
+    params,
+    formatAuthorName,
+    pagination,
+  });
 });
 
 function parseSearchBookPayload(request: Request) {

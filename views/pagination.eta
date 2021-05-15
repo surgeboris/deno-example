@@ -1,0 +1,45 @@
+<% if (it.pagination?.total > 0) { %>
+  <div class="mb-1">
+    <% if (it.pagination.hasPrev) { %>
+      <% if (it.pagination.isPost) { %>
+        <form class="inline" method="post">
+          <% it.pagination.payload.forEach(([name, value]) => { %>
+            <% if (name !== "from") { %>
+              <input type="hidden" name="<%= name %>" value="<%= value %>" />
+            <% } %>
+          <% }) %>
+          <input type="hidden" name="from" value="<%= it.pagination.prev %>" />
+          <button class="link-btn" type="submit">Предыдущая страница</button>
+        </form>
+      <% } else { %>
+        <% if (it.pagination.hasPrev) { %>
+          <a href="<%= it.pagination.prev %>">Предыдущая страница</a>
+        <% } %>
+      <% } %>
+    <% } %>
+    <% if (it.pagination.hasPrev) { %>
+      &nbsp;&nbsp;
+    <% } %>
+    <%= it.pagination.first %> - <%= it.pagination.last %> / <%= it.pagination.total %>
+    <% if (it.pagination.hasNext) { %>
+      &nbsp;&nbsp;
+    <% } %>
+    <% if (it.pagination.hasNext) { %>
+      <% if (it.pagination.isPost) { %>
+        <form class="inline" method="post">
+          <% it.pagination.payload.forEach(([name, value]) => { %>
+            <% if (name !== "from") { %>
+              <input type="hidden" name="<%= name %>" value="<%= value %>" />
+            <% } %>
+          <% }) %>
+          <input type="hidden" name="from" value="<%= it.pagination.next %>" />
+          <button class="link-btn" type="submit">Следующая страница</button>
+        </form>
+      <% } else { %>
+        <% if (it.pagination.hasNext) { %>
+          <a href="<%= it.pagination.next %>">Следующая страница</a>
+        <% } %>
+      <% } %>
+    <% } %>
+  </div>
+<% } %>

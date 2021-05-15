@@ -29,3 +29,27 @@ th, td {
     grid-column: span 2;
   }
 }
+
+.mb-1 {
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+}
+
+.inline {
+  display: inline;
+}
+
+.link-btn, .link-btn:hover, .link-btn:active {
+  background-color: transparent;
+  border-color: transparent;
+  padding: 0;
+  color: var(--link-color);
+}
+
+.link-btn:hover {
+  color: var(--link-hover-color);
+}
+
+.link-btn:active {
+  color: var(--link-active-color);
+}

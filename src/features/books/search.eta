@@ -29,25 +29,30 @@
   </section>
   <section>
     <h2>Результаты поиска</h2>
-    <table>
-      <thead>
-        <tr>
-          <th>Название</th>
-          <th>Автор</th>
-          <th>Жанр</th>
-          <th>Доступно, шт.</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% it.books.forEach(book => { %>
+    <%~ includeFile("pagination", it) %>
+    <% if (it.pagination?.total < 1) { %>
+      <p>По заданным критериям поиска результатов не найдено.</p>
+    <% } else { %>
+      <table>
+        <thead>
           <tr>
-            <td><%= book.title %></td>
-            <td><%= it.formatAuthorName(book) %></td>
-            <td><%= book.genre %></td>
-            <td><%= book.quantity %></td>
+            <th>Название</th>
+            <th>Автор</th>
+            <th>Жанр</th>
+            <th>Доступно, шт.</th>
           </tr>
-        <% }) %>
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          <% it.books.forEach(book => { %>
+            <tr>
+              <td><%= book.title %></td>
+              <td><%= it.formatAuthorName(book) %></td>
+              <td><%= book.genre %></td>
+              <td><%= book.quantity %></td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    <% } %>
   </section>
 </main>
