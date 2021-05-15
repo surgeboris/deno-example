@@ -20,6 +20,28 @@ export class Lending extends Model {
     ].join(" ");
     return queryRaw(query, { userId });
   }
+  static async getLended(userId: number, limit: number, from: number) {
+    const total = await Lending.where({ userId }).count();
+    // deno-lint-ignore no-explicit-any
+    const books: any[] = await Lending.where({ userId })
+      .select(
+        Lending.field("created_at"),
+        Book.field("title"),
+        Book.field("isbn"),
+      )
+      .join(Book, Book.field("id"), Lending.field("book_id"))
+      .orderBy(Lending.field("created_at"), "asc")
+      .limit(limit)
+      .offset(from)
+      .get();
+    books.forEach((b) => {
+      const expireDate = new Date(b.createdAt);
+      expireDate.setMonth(expireDate.getMonth() + 1);
+      b.expires = expireDate.toISOString().slice(0, 10);
+      b.isExpired = new Date() >= expireDate;
+    });
+    return [total, books] as const;
+  }
   static async lendTo(bookId: number, userId: number) {
     // deno-lint-ignore no-explicit-any
     const book: any = await Book.find(bookId);

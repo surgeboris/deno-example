@@ -20,6 +20,9 @@
           <li><a href="/bookadd">Добавить книгу</a></li>
           <li><a href="/register">Зарегистрировать читателя</a></li>
         <% } %>
+        <% if (it.user?.role === "reader") { %>
+          <li><a href="/lended">Взятые книги</a></li>
+        <% } %>
         <li>
           <% if (!it.user) { %>
             <a href="/login">Войти</a>

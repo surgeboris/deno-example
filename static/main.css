@@ -53,3 +53,8 @@ th, td {
 .link-btn:active {
   color: var(--link-active-color);
 }
+
+.error:nth-child(n) {
+  background: var(--danger-color);
+  color: var(--danger-text-color);
+}

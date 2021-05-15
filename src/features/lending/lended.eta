@@ -1,0 +1,40 @@
+<% layout("layouts/main", { "title": "Библиотека №1 — Взятые книги" }) %>
+
+<main>
+  <section>
+    <h1>Взятые книги</h1>
+    <%~ includeFile("pagination", it) %>
+    <% if (it.pagination?.total < 1) { %>
+      <p>Взятых книг нет.</p>
+    <% } else { %>
+      Взяты следующие книги:
+      <table>
+        <thead>
+          <tr>
+            <th>ISBN</th>
+            <th>Название</th>
+            <th>Вернуть до</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% it.books.forEach(book => { %>
+          <tr
+            <% if (book.isExpired) { %>
+              class="error"
+            <% } %>
+          >
+            <td><%= book.isbn %></td>
+            <td><%= book.title %></td>
+            <td>
+              <% if (book.isExpired) { %>
+                Просрочено:
+              <% } %>
+              <%= book.expires %>
+            </td>
+          </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    <% } %>
+  </section>
+</main>
