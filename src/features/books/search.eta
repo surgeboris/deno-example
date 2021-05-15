@@ -40,6 +40,10 @@
             <th>Автор</th>
             <th>Жанр</th>
             <th>Доступно, шт.</th>
+            <% if (it.user?.role === "librarian") { %>
+              <th></th>
+              <th></th>
+            <% } %>
           </tr>
         </thead>
         <tbody>
@@ -49,6 +53,25 @@
               <td><%= it.formatAuthorName(book) %></td>
               <td><%= book.genre %></td>
               <td><%= book.quantity %></td>
+              <% if (it.user?.role === "librarian") { %>
+                <td>
+                  <form action="/lend" method="post">
+                    <input type="hidden" name="book" value="<%= book.id %>" />
+                    <button
+                      type="submit"
+                      <% if (book.quantity === 0) { %>
+                      disabled="true"
+                      <% } %>
+                      >Выдать</button>
+                  </form>
+                </td>
+                <td>
+                  <form action="/checkin" method="post">
+                    <input type="hidden" name="book" value="<%= book.id %>" />
+                    <button type="submit">Принять</button>
+                  </form>
+                </td>
+              <% } %>
             </tr>
           <% }) %>
         </tbody>

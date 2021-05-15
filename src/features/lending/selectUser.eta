@@ -1,0 +1,59 @@
+<% layout("layouts/main", { "title": "Библиотека №1 — Найти читателя" }) %>
+
+<main>
+  <section>
+    <h2>Критерии поиска читателей</h2>
+    <form method="post">
+      <input type="hidden" name="book" value="<%= it.params.bookId %>" />
+      <label>
+        Логин <input type="text" name="login" value="<%= it.params.login %>" />
+      </label>
+      <label>
+        Фамилия <input type="text" name="lastname" value="<%= it.params.lastname %>" />
+      </label>
+      <footer>
+        <button type="submit">
+          Найти
+        </button>
+      </footer>
+    </form>
+  </section>
+  <section>
+    <h2>Выбрать читателя</h2>
+    <%~ includeFile("pagination", it) %>
+    <% if (it.pagination?.total < 1) { %>
+      <p>По заданным критериям поиска читателей не найдено</p>
+    <% } else { %>
+      <form method="post">
+        <input type="hidden" name="book" value="<%= it.params.bookId %>" />
+        <table>
+          <thead>
+            <th></th>
+            <th>Логин</th>
+            <th>Фамилия</th>
+            <th>Имя</th>
+            <th>Отчество</th>
+            <th>Адрес</th>
+          </thead>
+          <tbody>
+            <% it.users.forEach(user => { %>
+              <tr>
+                <td><input type="radio" name="user" value="<%= user.id %>" /></td>
+                <td><%= user.login %></td>
+                <td><%= user.lastname %></td>
+                <td><%= user.firstname %></td>
+                <td><%= user.middlename %></td>
+                <td><%= user.address %></td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+        <footer>
+          <button type="submit">
+            Выбрать читателя
+          </button>
+        </footer>
+      </form>
+    <% } %>
+  </section>
+</main>

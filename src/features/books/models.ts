@@ -66,8 +66,8 @@ export class Book extends Model {
     if (params.from) query += ` OFFSET :from`;
     const books = await queryRaw(
       [
-        `SELECT ${titleField}, quantity, firstname, middlename,`,
-        `lastname, ${genreField} AS genre`,
+        `SELECT ${Book.field("id")}, ${titleField}, quantity,`,
+        `firstname, middlename, lastname, ${genreField} AS genre`,
         query,
       ].join(" "),
       values,

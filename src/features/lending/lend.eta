@@ -1,0 +1,34 @@
+<% layout("layouts/main", { "title": "Библиотека №1 — Выдача книг" }) %>
+
+<main>
+  <section>
+    <% if (it.status === "success") { %>
+      <h1>Книга успешно выдана</h1>
+    <% } else { %>
+      <h1>Книга не выдана</h1>
+      <% if (!it.books) { %>
+        <p>Ни одного экземпляра данной книги не осталось в наличии.</p>
+      <% } %>
+      <% if (it.books?.length) { %>
+        <p>Прежде, чем взять новую книгу, читатель должен вернуть книги, срок возвращения которых истёк:</p>
+        <table>
+          <thead>
+            <tr>
+              <th>ISBN</th>
+              <th>Название</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% it.books.forEach(book => { %>
+            <tr>
+              <td><%= book.isbn %></td>
+              <td><%= book.title %></td>
+            </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      <% } %>
+    <% } %>
+  </section>
+</main>
+
