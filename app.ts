@@ -1,6 +1,7 @@
 import { Application } from "oak";
 
 import { state } from "src/appState.ts";
+import "src/dbSetup.ts";
 import { routes } from "src/routes.ts";
 
 const app = new Application({ state });
