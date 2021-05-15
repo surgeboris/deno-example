@@ -1,0 +1,60 @@
+<% layout("layouts/main", { "title": "Библиотека №1 — Главная страница сайта" }) %>
+
+<aside class="home">
+  <section>
+    <h3>График работы</h3>
+    <table>
+      <tbody>
+        <tr>
+          <td>Пн - Чт</td>
+          <td>с 09:00 до 20:00</td>
+        </tr>
+        <tr>
+          <td>Пт - Сб</td>
+          <td>с 10:00 до 18:00</td>
+        </tr>
+        <tr>
+          <td>Вс</td>
+          <td>выходной</td>
+        </tr>
+      </tbody>
+    </table>
+    </p>
+    <p>Санитарный день: последний понедельник месяца</p>
+  </section>
+  <section>
+    <h3>Контакты</h3>
+    <table>
+      <tbody>
+        <tr>
+          <td><a href="mailto:public@library.ru">public@libra.ry</a></td>
+          <td>электронная почта</td>
+        </tr>
+        <tr>
+          <td><a href="tel:+78352001626">+7 (8352) 001-626</a></td>
+          <td>информационно-сервисная служба</td>
+        </tr>
+        <tr>
+          <td><a href="tel:+78352001620">+7 (8352) 001-620</a></td>
+          <td>абонемент</td>
+        </tr>
+        <tr>
+          <td><a href="tel:+78352001620">+7 (8352) 001-616</a></td>
+          <td>приемная</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+  <section>
+    <h3>Адрес</h3>
+    <p>г. Чебоксары, ул. Молодежная, д. 5</p>
+  </section>
+</aside>
+<main>
+  <section>
+    <h2>Доска объявлений</h2>
+    <div class="announcements">
+      <%~ it.announcements %>
+    </div>
+  </section>
+</main>

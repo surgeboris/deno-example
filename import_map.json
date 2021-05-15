@@ -1,0 +1,10 @@
+{
+  "imports": {
+    "src/": "./src/",
+    "eta": "https://deno.land/x/eta@v1.12.1/mod.ts",
+    "oak": "https://deno.land/x/oak@v7.4.0/mod.ts",
+    "path": "https://deno.land/std@0.95.0/path/mod.ts"
+  },
+  "scopes": {
+  }
+}
